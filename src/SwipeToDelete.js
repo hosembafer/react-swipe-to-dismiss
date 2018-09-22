@@ -3,15 +3,23 @@ import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
 
 class SwipeToDelete extends React.Component {
-  node = null;
+  constructor(props) {
+    super(props);
 
-  state = {
-    positionLeft: 0,
-    pressedPosition: false,
-    animate: false,
-    opacity: 1,
-    removing: false,
-  };
+    this.node = null;
+
+    this.state = {
+      positionLeft: 0,
+      pressedPosition: false,
+      animate: false,
+      opacity: 1,
+      removing: false,
+    };
+
+    this.onMouseMove = this.onMouseMove.bind(this);
+    this.onMouseUp = this.onMouseUp.bind(this);
+    this.onMouseDown = this.onMouseDown.bind(this);
+  }
 
   componentDidMount() {
     this.node = findDOMNode(this);
@@ -23,7 +31,7 @@ class SwipeToDelete extends React.Component {
     document.body.removeEventListener('mouseup', this.onMouseUp);
   }
 
-  onMouseMove = event => {
+  onMouseMove(event) {
     const {
       pressedPosition,
     } = this.state;
@@ -48,16 +56,16 @@ class SwipeToDelete extends React.Component {
 
       this.setState(newState);
     }
-  };
+  }
 
-  onMouseDown = event => {
+  onMouseDown(event) {
     this.setState({
       pressedPosition: event.screenX,
       animate: false,
     });
-  };
+  }
 
-  onMouseUp = () => {
+  onMouseUp() {
     const {
       removing,
     } = this.state;
@@ -70,15 +78,15 @@ class SwipeToDelete extends React.Component {
         opacity: 1,
       });
     }
-  };
+  }
 
-  remove = () => {
+  remove() {
     const {
       onDelete,
     } = this.props;
 
     setTimeout(() => onDelete(), 300);
-  };
+  }
 
   render() {
     const {
