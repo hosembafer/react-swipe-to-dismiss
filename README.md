@@ -9,7 +9,7 @@ npm install --save react-swipe-to-delete
 
 ## Usage
 react-swipe-to-delete decorate your component, not wrapping, so you can use it on layouts too.
-When your component become swiped more than it's width, it will be removed and remove callback will be fired.
+When your component become swiped more than it's width, it will be removed and onDelete callback will be fired.
 
 ### Example
 You may see an example [here (will be soon)](http://hosembafer.github.io/react-swipe-to-delete/example/).
