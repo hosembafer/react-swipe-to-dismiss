@@ -1,2 +1,32 @@
 # react-swipe-to-delete
 Swipe to delete Component for notifications
+
+## Install
+React-swipe-to-delete is available via [npm](https://www.npmjs.com/package/react-swipe-to-delete).
+```
+npm install --save react-swipe-to-delete
+```
+
+## Usage
+react-swipe-to-delete decorate your component, not wrapping, so you can use it on layouts too.
+When your component become swiped more than it's width, it will be removed and remove callback will be fired.
+
+### Example
+You may see an example [here (will be soon)](http://hosembafer.github.io/react-swipe-to-delete/example/).
+```js
+// Import
+import SwipeToDelete from 'react-swipe-to-delete';
+
+// Use
+<SwipeToDelete
+  onRemove={() => this.props.remove()}
+>
+  <div className="Message">
+    Your changes has been saved.
+  </div>
+</SwipeToDelete>
+
+```
+
+### Props
+- **onDelete** - function. If a component swiped more than its width then it will be called.

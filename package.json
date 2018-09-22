@@ -1,0 +1,36 @@
+{
+  "name": "react-swipe-to-delete",
+  "version": "0.1.0",
+  "description": "Swipe to delete Component for notifications",
+  "main": "src/SwipeToDelete.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hosembafer/react-swipe-to-delete.git"
+  },
+  "keywords": [
+    "animation",
+    "react",
+    "react-component",
+    "swipe",
+    "swipe-to-delete",
+    "swipe-to-remove",
+    "swipe-to-hide",
+    "scroll-to-remove",
+    "scroll-to-delete",
+    "scroll-to-hide"
+  ],
+  "author": "Rafael Hovhannisyan <hovhannisian.rafael@gmail.com>",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/hosembafer/react-swipe-to-delete/issues"
+  },
+  "homepage": "https://github.com/hosembafer/react-swipe-to-delete#readme",
+  "peerDependencies": {
+    "prop-types": "^15.6.2",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2"
+  }
+}
