@@ -19,7 +19,7 @@ import SwipeToDelete from 'react-swipe-to-delete';
 
 // Use
 <SwipeToDelete
-  onRemove={() => this.props.remove()}
+  onDelete={() => this.props.remove()}
 >
   <div className="Message">
     Your changes has been saved.
