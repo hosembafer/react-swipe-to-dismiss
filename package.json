@@ -1,6 +1,6 @@
 {
   "name": "react-swipe-to-delete",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Swipe to delete Component for notifications",
   "main": "src/SwipeToDelete.js",
   "scripts": {
