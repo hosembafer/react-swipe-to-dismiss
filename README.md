@@ -12,7 +12,7 @@ react-swipe-to-delete decorate your component, not wrapping, so you can use it o
 When your component become swiped more than it's width, it will be removed and onDelete callback will be fired.
 
 ### Example
-You may see an example [here](https://rawgit.com/hosembafer/react-swipe-to-delete/master/example/build/index.html).
+You may see an example <a href="https://rawgit.com/hosembafer/react-swipe-to-delete/master/example/build/index.html" target="_blank">here</a>.
 ```js
 // Import
 import SwipeToDelete from 'react-swipe-to-delete';
