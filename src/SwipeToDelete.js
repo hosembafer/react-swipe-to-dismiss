@@ -34,12 +34,15 @@ class SwipeToDelete extends React.Component {
   onMouseMove(event) {
     const {
       pressedPosition,
+      removing,
     } = this.state;
+
+    if (removing) return;
 
     if (pressedPosition) {
       let newPositionLeft = event.screenX - pressedPosition;
 
-      const newState = {...this.state};
+      const newState = JSON.parse(JSON.stringify(this.state));
       if (newPositionLeft >= this.node.offsetWidth) {
         newPositionLeft = newPositionLeft + this.node.offsetWidth;
         newState.animate = true;
@@ -91,7 +94,6 @@ class SwipeToDelete extends React.Component {
   render() {
     const {
       children,
-      className,
     } = this.props;
 
     const {
@@ -113,9 +115,10 @@ class SwipeToDelete extends React.Component {
 
     const newChildProps = {
       style,
-      className,
       onMouseMove: this.onMouseMove,
       onMouseDown: this.onMouseDown,
+
+      className: child.props.className,
     };
 
     return React.cloneElement(child, newChildProps);

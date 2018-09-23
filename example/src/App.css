@@ -1,0 +1,22 @@
+body {
+    font-family: sans-serif;
+}
+
+.MessageList {
+    position: absolute;
+    top: 20%;
+    left: 0;
+    right: 0;
+}
+
+.Message {
+    font-weight: 600;
+    border-left: 10px green solid;
+    border-radius: 5px;
+    box-shadow: 0 8px 26px 0 rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    color: #333;
+    width: 400px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}

@@ -1,0 +1,1 @@
+react-swipe-to-delete example
