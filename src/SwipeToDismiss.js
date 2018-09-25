@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
 
-class SwipeToDelete extends React.Component {
+class SwipeToDismiss extends React.Component {
   constructor(props) {
     super(props);
 
@@ -85,10 +85,10 @@ class SwipeToDelete extends React.Component {
 
   remove() {
     const {
-      onDelete,
+      onDismiss,
     } = this.props;
 
-    setTimeout(() => onDelete(), 300);
+    setTimeout(() => onDismiss(), 300);
   }
 
   render() {
@@ -125,8 +125,8 @@ class SwipeToDelete extends React.Component {
   }
 }
 
-SwipeToDelete.propTypes = {
-  onDelete: PropTypes.func.isRequired,
+SwipeToDismiss.propTypes = {
+  onDismiss: PropTypes.func.isRequired,
 };
 
-export default SwipeToDelete;
+export default SwipeToDismiss;

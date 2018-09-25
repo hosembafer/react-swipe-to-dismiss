@@ -1,33 +1,31 @@
 {
-  "name": "react-swipe-to-delete",
-  "version": "0.1.8",
-  "description": "Swipe to delete Component for notifications",
-  "main": "src/SwipeToDelete.js",
+  "name": "react-swipe-to-dismiss",
+  "version": "0.2.0",
+  "description": "Swipe to dismiss Component for notifications",
+  "main": "src/SwipeToDismiss.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hosembafer/react-swipe-to-delete.git"
+    "url": "git+https://github.com/hosembafer/react-swipe-to-dismiss.git"
   },
   "keywords": [
     "animation",
     "react",
     "react-component",
     "swipe",
+    "swipe-to-dismiss",
     "swipe-to-delete",
     "swipe-to-remove",
-    "swipe-to-hide",
-    "scroll-to-remove",
-    "scroll-to-delete",
-    "scroll-to-hide"
+    "swipe-to-hide"
   ],
   "author": "Rafael Hovhannisyan <hovhannisian.rafael@gmail.com>",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/hosembafer/react-swipe-to-delete/issues"
+    "url": "https://github.com/hosembafer/react-swipe-to-dismiss/issues"
   },
-  "homepage": "https://github.com/hosembafer/react-swipe-to-delete#readme",
+  "homepage": "https://github.com/hosembafer/react-swipe-to-dismiss#readme",
   "peerDependencies": {
     "prop-types": "^15.6.2",
     "react": "^16.5.2",

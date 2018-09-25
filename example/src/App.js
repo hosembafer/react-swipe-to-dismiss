@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import SwipeToDelete from 'react-swipe-to-delete';
+import SwipeToDismiss from 'react-swipe-to-dismiss';
 
 class App extends Component {
   state = {
@@ -30,14 +30,14 @@ class App extends Component {
       <div className="App">
         <div className={'MessageList'}>
           {messages.map((it, index) => (
-            <SwipeToDelete
+            <SwipeToDismiss
               key={btoa(it)}
-              onDelete={() => this.remove(index)}
+              onDismiss={() => this.remove(index)}
             >
               <div className={'Message'}>
                 {it}
               </div>
-            </SwipeToDelete>
+            </SwipeToDismiss>
           ))}
         </div>
       </div>

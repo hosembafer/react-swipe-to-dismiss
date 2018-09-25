@@ -1,1 +1,1 @@
-react-swipe-to-delete example
+react-swipe-to-dismiss example
