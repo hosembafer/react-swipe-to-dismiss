@@ -41,21 +41,28 @@ class SwipeToDismiss extends React.Component {
 
     if (pressedPosition) {
       let newPositionLeft = event.screenX - pressedPosition;
-
+      const directionValue = this.props.direction === 'right' ? 1 : -1
       const newState = JSON.parse(JSON.stringify(this.state));
-      if (newPositionLeft >= this.node.offsetWidth) {
-        newPositionLeft = newPositionLeft + this.node.offsetWidth;
+      if ((this.props.direction === 'right' && newPositionLeft >= (this.node.offsetWidth * this.props.distanceBeforeDissmiss / 100)) || (this.props.direction === 'left' && newPositionLeft * directionValue >= (this.node.offsetWidth * this.props.distanceBeforeDissmiss / 100)) ) {
+        newPositionLeft = newPositionLeft + this.node.offsetWidth * directionValue;
         newState.animate = true;
         newState.removing = true;
-
-        this.remove();
+        setTimeout(() => {
+          this.node.style.height = '0'
+          this.node.remove();
+        }, 500)
       }
       else {
-        newPositionLeft = newPositionLeft < 0 ? 0 : newPositionLeft;
+        if (this.props.direction === 'right') {
+          newPositionLeft = newPositionLeft < 0 ? 0 : newPositionLeft;
+        } else {
+          newPositionLeft = newPositionLeft > 0 ? 0 : newPositionLeft;
+        }
       }
 
+      console.log(newPositionLeft);
       newState.positionLeft = newPositionLeft;
-      newState.opacity = (100 - (newPositionLeft * 100 / (this.node.offsetWidth * 2))) / 100;
+      newState.opacity = (100 - (newPositionLeft * directionValue * 100 / (this.node.offsetWidth * 2))) / 100;
 
       this.setState(newState);
     }
@@ -86,6 +93,7 @@ class SwipeToDismiss extends React.Component {
   remove() {
     const {
       onDismiss,
+      distanceBeforeDissmiss,
     } = this.props;
 
     setTimeout(() => onDismiss(), 300);
@@ -127,6 +135,13 @@ class SwipeToDismiss extends React.Component {
 
 SwipeToDismiss.propTypes = {
   onDismiss: PropTypes.func.isRequired,
+  distanceBeforeDissmiss: PropTypes.number,
+  direction: PropTypes.string,
+};
+
+SwipeToDismiss.defaultProps = {
+  distanceBeforeDissmiss: 100,
+  direction: 'right',
 };
 
 export default SwipeToDismiss;
