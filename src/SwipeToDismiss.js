@@ -48,8 +48,7 @@ class SwipeToDismiss extends React.Component {
         newState.animate = true;
         newState.removing = true;
         setTimeout(() => {
-          this.node.style.height = '0'
-          this.node.remove();
+          this.remove();
         }, 500)
       }
       else {
@@ -60,7 +59,6 @@ class SwipeToDismiss extends React.Component {
         }
       }
 
-      console.log(newPositionLeft);
       newState.positionLeft = newPositionLeft;
       newState.opacity = (100 - (newPositionLeft * directionValue * 100 / (this.node.offsetWidth * 2))) / 100;
 
@@ -93,10 +91,15 @@ class SwipeToDismiss extends React.Component {
   remove() {
     const {
       onDismiss,
-      distanceBeforeDissmiss,
+      removeDOM
     } = this.props;
 
-    setTimeout(() => onDismiss(), 300);
+    setTimeout(() => {
+      if (removeDOM) {
+        this.node.remove()
+      }
+      onDismiss()
+    }, 300)
   }
 
   render() {
@@ -136,12 +139,14 @@ class SwipeToDismiss extends React.Component {
 SwipeToDismiss.propTypes = {
   onDismiss: PropTypes.func.isRequired,
   distanceBeforeDissmiss: PropTypes.number,
+  removeDOM: PropTypes.bool,
   direction: PropTypes.string,
-};
+}
 
 SwipeToDismiss.defaultProps = {
   distanceBeforeDissmiss: 100,
   direction: 'right',
-};
+  removeDOM: false,
+}
 
 export default SwipeToDismiss;
