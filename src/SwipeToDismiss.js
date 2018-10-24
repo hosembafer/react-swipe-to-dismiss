@@ -41,21 +41,26 @@ class SwipeToDismiss extends React.Component {
 
     if (pressedPosition) {
       let newPositionLeft = event.screenX - pressedPosition;
-
+      const directionValue = this.props.direction === 'right' ? 1 : -1
       const newState = JSON.parse(JSON.stringify(this.state));
-      if (newPositionLeft >= this.node.offsetWidth) {
-        newPositionLeft = newPositionLeft + this.node.offsetWidth;
+      if ((this.props.direction === 'right' && newPositionLeft >= (this.node.offsetWidth * this.props.distanceBeforeDissmiss / 100)) || (this.props.direction === 'left' && newPositionLeft * directionValue >= (this.node.offsetWidth * this.props.distanceBeforeDissmiss / 100)) ) {
+        newPositionLeft = newPositionLeft + this.node.offsetWidth * directionValue;
         newState.animate = true;
         newState.removing = true;
-
-        this.remove();
+        setTimeout(() => {
+          this.remove();
+        }, 500)
       }
       else {
-        newPositionLeft = newPositionLeft < 0 ? 0 : newPositionLeft;
+        if (this.props.direction === 'right') {
+          newPositionLeft = newPositionLeft < 0 ? 0 : newPositionLeft;
+        } else {
+          newPositionLeft = newPositionLeft > 0 ? 0 : newPositionLeft;
+        }
       }
 
       newState.positionLeft = newPositionLeft;
-      newState.opacity = (100 - (newPositionLeft * 100 / (this.node.offsetWidth * 2))) / 100;
+      newState.opacity = (100 - (newPositionLeft * directionValue * 100 / (this.node.offsetWidth * 2))) / 100;
 
       this.setState(newState);
     }
@@ -86,9 +91,15 @@ class SwipeToDismiss extends React.Component {
   remove() {
     const {
       onDismiss,
+      removeDOM
     } = this.props;
 
-    setTimeout(() => onDismiss(), 300);
+    setTimeout(() => {
+      if (removeDOM) {
+        this.node.remove()
+      }
+      onDismiss()
+    }, 300)
   }
 
   render() {
@@ -127,6 +138,15 @@ class SwipeToDismiss extends React.Component {
 
 SwipeToDismiss.propTypes = {
   onDismiss: PropTypes.func.isRequired,
-};
+  distanceBeforeDissmiss: PropTypes.number,
+  removeDOM: PropTypes.bool,
+  direction: PropTypes.string,
+}
+
+SwipeToDismiss.defaultProps = {
+  distanceBeforeDissmiss: 100,
+  direction: 'right',
+  removeDOM: false,
+}
 
 export default SwipeToDismiss;
