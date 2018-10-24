@@ -37,13 +37,19 @@ class SwipeToDismiss extends React.Component {
       removing,
     } = this.state;
 
+    const {
+      distanceBeforeDismiss,
+      direction,
+    } = this.props;
+
     if (removing) return;
 
     if (pressedPosition) {
       let newPositionLeft = event.screenX - pressedPosition;
-      const directionValue = this.props.direction === 'right' ? 1 : -1
+      const directionValue = direction === 'right' ? 1 : -1;
       const newState = JSON.parse(JSON.stringify(this.state));
-      if ((this.props.direction === 'right' && newPositionLeft >= (this.node.offsetWidth * this.props.distanceBeforeDissmiss / 100)) || (this.props.direction === 'left' && newPositionLeft * directionValue >= (this.node.offsetWidth * this.props.distanceBeforeDissmiss / 100)) ) {
+
+      if ((direction === 'right' && newPositionLeft >= (this.node.offsetWidth * distanceBeforeDismiss / 100)) || (direction === 'left' && newPositionLeft * directionValue >= (this.node.offsetWidth * distanceBeforeDismiss / 100)) ) {
         newPositionLeft = newPositionLeft + this.node.offsetWidth * directionValue;
         newState.animate = true;
         newState.removing = true;
@@ -52,7 +58,7 @@ class SwipeToDismiss extends React.Component {
         }, 500)
       }
       else {
-        if (this.props.direction === 'right') {
+        if (direction === 'right') {
           newPositionLeft = newPositionLeft < 0 ? 0 : newPositionLeft;
         } else {
           newPositionLeft = newPositionLeft > 0 ? 0 : newPositionLeft;
@@ -138,15 +144,15 @@ class SwipeToDismiss extends React.Component {
 
 SwipeToDismiss.propTypes = {
   onDismiss: PropTypes.func.isRequired,
-  distanceBeforeDissmiss: PropTypes.number,
+  distanceBeforeDismiss: PropTypes.number,
   removeDOM: PropTypes.bool,
   direction: PropTypes.string,
-}
+};
 
 SwipeToDismiss.defaultProps = {
-  distanceBeforeDissmiss: 100,
+  distanceBeforeDismiss: 100,
   direction: 'right',
   removeDOM: false,
-}
+};
 
 export default SwipeToDismiss;
