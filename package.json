@@ -1,6 +1,6 @@
 {
   "name": "react-swipe-to-dismiss",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Swipe to dismiss Component for notifications",
   "main": "src/SwipeToDismiss.js",
   "scripts": {

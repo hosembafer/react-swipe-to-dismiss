@@ -1825,25 +1825,36 @@ class SwipeToDismiss extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compo
       removing,
     } = this.state;
 
+    const {
+      distanceBeforeDismiss,
+      direction,
+    } = this.props;
+
     if (removing) return;
 
     if (pressedPosition) {
       let newPositionLeft = event.screenX - pressedPosition;
-
+      const directionValue = direction === 'right' ? 1 : -1;
       const newState = JSON.parse(JSON.stringify(this.state));
-      if (newPositionLeft >= this.node.offsetWidth) {
-        newPositionLeft = newPositionLeft + this.node.offsetWidth;
+
+      if ((direction === 'right' && newPositionLeft >= (this.node.offsetWidth * distanceBeforeDismiss / 100)) || (direction === 'left' && newPositionLeft * directionValue >= (this.node.offsetWidth * distanceBeforeDismiss / 100)) ) {
+        newPositionLeft = newPositionLeft + this.node.offsetWidth * directionValue;
         newState.animate = true;
         newState.removing = true;
-
-        this.remove();
+        setTimeout(() => {
+          this.remove();
+        }, 500)
       }
       else {
-        newPositionLeft = newPositionLeft < 0 ? 0 : newPositionLeft;
+        if (direction === 'right') {
+          newPositionLeft = newPositionLeft < 0 ? 0 : newPositionLeft;
+        } else {
+          newPositionLeft = newPositionLeft > 0 ? 0 : newPositionLeft;
+        }
       }
 
       newState.positionLeft = newPositionLeft;
-      newState.opacity = (100 - (newPositionLeft * 100 / (this.node.offsetWidth * 2))) / 100;
+      newState.opacity = (100 - (newPositionLeft * directionValue * 100 / (this.node.offsetWidth * 2))) / 100;
 
       this.setState(newState);
     }
@@ -1874,9 +1885,15 @@ class SwipeToDismiss extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compo
   remove() {
     const {
       onDismiss,
+      removeDOM
     } = this.props;
 
-    setTimeout(() => onDismiss(), 300);
+    setTimeout(() => {
+      if (removeDOM) {
+        this.node.remove()
+      }
+      onDismiss()
+    }, 300)
   }
 
   render() {
@@ -1915,6 +1932,15 @@ class SwipeToDismiss extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compo
 
 SwipeToDismiss.propTypes = {
   onDismiss: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func.isRequired,
+  distanceBeforeDismiss: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.number,
+  removeDOM: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool,
+  direction: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string,
+};
+
+SwipeToDismiss.defaultProps = {
+  distanceBeforeDismiss: 100,
+  direction: 'right',
+  removeDOM: false,
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (SwipeToDismiss);
@@ -2041,4 +2067,4 @@ module.exports = ReactPropTypesSecret;
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=main.4b2952af.js.map
+//# sourceMappingURL=main.8e02cece.js.map
