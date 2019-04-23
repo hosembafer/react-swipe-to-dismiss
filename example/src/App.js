@@ -1,48 +1,45 @@
-import React, { Component } from 'react';
+import React, {useRef, useState} from 'react';
 import './App.css';
 
-import SwipeToDismiss from 'react-swipe-to-dismiss';
+import useSwipeToDismiss from './useSwipeToDismiss';
 
-class App extends Component {
-  state = {
-    messages: [
-      'Your changes has been saved.',
-      'Please verify your email.',
-      'Foo',
-      'Bar',
-    ],
+const MessageItem = ({message, onDismiss}) => {
+  const ref = useRef(null);
+
+  const restProps = useSwipeToDismiss(ref, onDismiss, false, 100, 'right');
+
+  return <div ref={ref} className={'Message'} {...restProps}>
+    {message}
+  </div>;
+};
+
+function App() {
+  const [messages, setMessages] = useState([
+    'Your changes has been saved.',
+    'Please verify your email.',
+    'Foo',
+    'Bar',
+  ]);
+
+  const handleDismiss = (indexToRemove) => {
+    const newMessages = messages.filter((it, index) => index !== indexToRemove);
+
+    setMessages(newMessages);
   };
 
-  remove = (indexToRemove) => {
-    const messages = this.state.messages.filter((it, index) => index !== indexToRemove);
-
-    this.setState({
-      messages,
-    });
-  };
-
-  render() {
-    const {
-      messages,
-    } = this.state;
-
-    return (
-      <div className="App">
-        <div className={'MessageList'}>
-          {messages.map((it, index) => (
-            <SwipeToDismiss
-              key={btoa(it)}
-              onDismiss={() => this.remove(index)}
-            >
-              <div className={'Message'}>
-                {it}
-              </div>
-            </SwipeToDismiss>
-          ))}
-        </div>
+  return (
+    <div className="App">
+      <div className={'MessageList'}>
+        {messages.map((it, index) => (
+          <MessageItem
+            key={btoa(it)}
+            message={it}
+            onDismiss={() => handleDismiss(index)}
+          />
+        ))}
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default App;
