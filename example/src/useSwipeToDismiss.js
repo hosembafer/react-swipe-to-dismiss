@@ -1,6 +1,6 @@
 import {useCallback, useEffect, useState} from 'react';
 
-const useSwipeToDismiss = (ref, onDismiss, removeDOM, distanceBeforeDismiss, direction) => {
+const useSwipeToDismiss = (ref, onDismiss, removeDOM = false, distanceBeforeDismiss = 100, direction = 'right') => {
   const node = ref.current;
 
   const [removing, setRemoving] = useState(false);

@@ -6,9 +6,9 @@ import useSwipeToDismiss from './useSwipeToDismiss';
 const MessageItem = ({message, onDismiss}) => {
   const ref = useRef(null);
 
-  const restProps = useSwipeToDismiss(ref, onDismiss, false, 100, 'right');
+  const swipeableMessageProps = useSwipeToDismiss(ref, onDismiss, false, 100, 'right');
 
-  return <div ref={ref} className={'Message'} {...restProps}>
+  return <div ref={ref} className={'Message'} {...swipeableMessageProps}>
     {message}
   </div>;
 };
