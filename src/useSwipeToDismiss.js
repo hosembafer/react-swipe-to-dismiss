@@ -1,6 +1,6 @@
 import {useCallback, useEffect, useState} from 'react';
 
-const useSwipeToDismiss = (ref, onDismiss, removeDOM, distanceBeforeDismiss, direction) => {
+const useSwipeToDismiss = (ref, onDismiss, removeDOM = false, distanceBeforeDismiss = 100, direction = 'right') => {
   const node = ref.current;
 
   const [removing, setRemoving] = useState(false);
@@ -55,16 +55,29 @@ const useSwipeToDismiss = (ref, onDismiss, removeDOM, distanceBeforeDismiss, dir
     }
   }, [removing, pressedPosition, direction, distanceBeforeDismiss, node, remove]);
 
-  const onMouseDown = (event) => {
+  const onMouseDown = useCallback((event) => {
     setPressedPosition(event.screenX);
     setAnimate(false);
-  };
+  }, [setPressedPosition, setAnimate]);
 
+  useEffect(() => {
+    if (!node) {
+      setOpacity(1.1); // forceUpdate
+    }
+
+    node && node.addEventListener('mousedown', onMouseDown);
+    return () => node && node.removeEventListener('mousedown', onMouseDown);
+  }, [node, onMouseDown, setOpacity]);
 
   useEffect(() => {
     document.body.addEventListener('mouseup', onMouseUp);
-    return () => document.body.removeEventListener('mouseup', onMouseUp);
-  });
+    document.body.addEventListener('mousemove', onMouseMove);
+
+    return () => {
+      document.body.removeEventListener('mouseup', onMouseUp);
+      document.body.removeEventListener('mousemove', onMouseMove);
+    };
+  }, [onMouseUp, onMouseDown, onMouseMove]);
 
   const style = {
     transform: `translateX(${positionLeft}px)`,
@@ -74,12 +87,15 @@ const useSwipeToDismiss = (ref, onDismiss, removeDOM, distanceBeforeDismiss, dir
   if (animate) {
     style.transition = 'transform 0.3s ease, opacity 0.5s ease';
   }
-
-  return {
-    onMouseMove,
-    onMouseDown,
-    style,
-  };
+  else {
+    style.transition = '';
+  }
+  
+  if (node) {
+    for (let property in style) {
+      node.style[property] = style[property];
+    }
+  }
 };
 
 export default useSwipeToDismiss;

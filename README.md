@@ -30,3 +30,6 @@ import SwipeToDismiss from 'react-swipe-to-dismiss';
 
 ### Props
 - **onDismiss** - function. If a component swiped more than its width then it will be called.
+- **distanceBeforeDismiss** - number. Distance in pixels from where lib will trigger **onDismiss**
+- **removeDOM** - boolean. Remove from DOM when element reaches **distanceBeforeDismiss**
+- **direction** - enum(left, right). In which direction user can swipe the element

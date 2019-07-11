@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
 
+import useSwipeToDismiss from './useSwipeToDismiss';
+
 class SwipeToDismiss extends React.Component {
   constructor(props) {
     super(props);
@@ -153,6 +155,10 @@ SwipeToDismiss.defaultProps = {
   distanceBeforeDismiss: 100,
   direction: 'right',
   removeDOM: false,
+};
+
+export {
+  useSwipeToDismiss
 };
 
 export default SwipeToDismiss;
