@@ -1,4 +1,8 @@
 # react-swipe-to-dismiss
+[![npm version](https://img.shields.io/npm/v/react-swipe-to-dismiss?logo=npm)](https://www.npmjs.com/package/react-swipe-to-dismiss)
+[![npm downloads](https://img.shields.io/npm/dw/react-swipe-to-dismiss?logo=npm)](https://www.npmjs.com/package/react-swipe-to-dismiss)
+[![npm size](https://img.shields.io/bundlephobia/min/react-swipe-to-dismiss?logo=npm)](https://www.npmjs.com/package/react-swipe-to-dismiss)
+
 Swipe to dismiss hook for notifications
 
 ## Install
