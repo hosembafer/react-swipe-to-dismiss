@@ -1,12 +1,12 @@
-import React, {useRef, useState} from 'react';
+import React, { useRef, useState } from 'react';
 import './App.css';
 
 import { useSwipeToDismiss } from '../../dist/SwipeToDismiss';
 
-const MessageItem = ({message, onDismiss}) => {
+const MessageItem = ({ message, onDismiss }) => {
   const ref = useRef();
 
-  useSwipeToDismiss(ref, onDismiss, false, 100, 'right');
+  useSwipeToDismiss(ref, onDismiss, false, 50, 'right');
 
   return <div ref={ref} className={'Message'}>
     {message}

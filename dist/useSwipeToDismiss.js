@@ -7,13 +7,29 @@ exports["default"] = void 0;
 
 var _react = require("react");
 
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var getScreenX = function getScreenX(event) {
+  var screenX;
+
+  if (event instanceof TouchEvent) {
+    screenX = event.touches[0].screenX;
+  } else {
+    screenX = event.screenX;
+  }
+
+  return screenX;
+};
 
 var useSwipeToDismiss = function useSwipeToDismiss(ref, onDismiss) {
   var removeDOM = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
@@ -64,19 +80,19 @@ var useSwipeToDismiss = function useSwipeToDismiss(ref, onDismiss) {
     }
   }, [removing]);
   var onMouseMove = (0, _react.useCallback)(function (event) {
+    event.preventDefault();
     if (removing) return;
+    var screenX = getScreenX(event);
 
     if (pressedPosition) {
-      var newPositionLeft = event.screenX - pressedPosition;
+      var newPositionLeft = screenX - pressedPosition;
       var directionValue = direction === 'right' ? 1 : -1;
 
       if (direction === 'right' && newPositionLeft >= node.offsetWidth * distanceBeforeDismiss / 100 || direction === 'left' && newPositionLeft * directionValue >= node.offsetWidth * distanceBeforeDismiss / 100) {
         newPositionLeft = newPositionLeft + node.offsetWidth * directionValue;
         setAnimate(true);
         setRemoving(true);
-        setTimeout(function () {
-          remove();
-        }, 500);
+        remove();
       } else {
         if (direction === 'right') {
           newPositionLeft = newPositionLeft < 0 ? 0 : newPositionLeft;
@@ -90,7 +106,8 @@ var useSwipeToDismiss = function useSwipeToDismiss(ref, onDismiss) {
     }
   }, [removing, pressedPosition, direction, distanceBeforeDismiss, node, remove]);
   var onMouseDown = (0, _react.useCallback)(function (event) {
-    setPressedPosition(event.screenX);
+    var screenX = getScreenX(event);
+    setPressedPosition(screenX);
     setAnimate(false);
   }, [setPressedPosition, setAnimate]);
   (0, _react.useEffect)(function () {
@@ -98,17 +115,30 @@ var useSwipeToDismiss = function useSwipeToDismiss(ref, onDismiss) {
       setOpacity(1.1); // forceUpdate
     }
 
-    node && node.addEventListener('mousedown', onMouseDown);
+    if (node) {
+      node.addEventListener('mousedown', onMouseDown);
+      node.addEventListener('touchstart', onMouseDown);
+    }
+
     return function () {
-      return node && node.removeEventListener('mousedown', onMouseDown);
+      if (node) {
+        node.removeEventListener('mousedown', onMouseDown);
+        node.removeEventListener('touchstart', onMouseDown);
+      }
     };
   }, [node, onMouseDown, setOpacity]);
   (0, _react.useEffect)(function () {
     document.body.addEventListener('mouseup', onMouseUp);
     document.body.addEventListener('mousemove', onMouseMove);
+    document.body.addEventListener('touchmove', onMouseMove, {
+      passive: false
+    });
+    document.body.addEventListener('touchend', onMouseUp);
     return function () {
       document.body.removeEventListener('mouseup', onMouseUp);
       document.body.removeEventListener('mousemove', onMouseMove);
+      document.body.removeEventListener('touchmove', onMouseMove);
+      document.body.removeEventListener('touchend', onMouseMove);
     };
   }, [onMouseUp, onMouseDown, onMouseMove]);
   var style = {

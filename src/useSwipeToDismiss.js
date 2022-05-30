@@ -1,4 +1,14 @@
-import {useCallback, useEffect, useState} from 'react';
+import { useCallback, useEffect, useState } from 'react';
+
+const getScreenX = (event) => {
+  let screenX;
+  if (event instanceof TouchEvent) {
+    screenX = event.touches[0].screenX;
+  } else {
+    screenX = event.screenX;
+  }
+  return screenX;
+};
 
 const useSwipeToDismiss = (ref, onDismiss, removeDOM = false, distanceBeforeDismiss = 100, direction = 'right') => {
   const node = ref.current;
@@ -28,19 +38,20 @@ const useSwipeToDismiss = (ref, onDismiss, removeDOM = false, distanceBeforeDism
   }, [removing]);
 
   const onMouseMove = useCallback((event) => {
+    event.preventDefault();
     if (removing) return;
 
+    const screenX = getScreenX(event);
+
     if (pressedPosition) {
-      let newPositionLeft = event.screenX - pressedPosition;
+      let newPositionLeft = screenX - pressedPosition;
       const directionValue = direction === 'right' ? 1 : -1;
 
       if ((direction === 'right' && newPositionLeft >= (node.offsetWidth * distanceBeforeDismiss / 100)) || (direction === 'left' && newPositionLeft * directionValue >= (node.offsetWidth * distanceBeforeDismiss / 100))) {
         newPositionLeft = newPositionLeft + node.offsetWidth * directionValue;
         setAnimate(true);
         setRemoving(true);
-        setTimeout(() => {
-          remove();
-        }, 500);
+        remove();
       }
       else {
         if (direction === 'right') {
@@ -56,7 +67,9 @@ const useSwipeToDismiss = (ref, onDismiss, removeDOM = false, distanceBeforeDism
   }, [removing, pressedPosition, direction, distanceBeforeDismiss, node, remove]);
 
   const onMouseDown = useCallback((event) => {
-    setPressedPosition(event.screenX);
+    const screenX = getScreenX(event);
+
+    setPressedPosition(screenX);
     setAnimate(false);
   }, [setPressedPosition, setAnimate]);
 
@@ -65,17 +78,31 @@ const useSwipeToDismiss = (ref, onDismiss, removeDOM = false, distanceBeforeDism
       setOpacity(1.1); // forceUpdate
     }
 
-    node && node.addEventListener('mousedown', onMouseDown);
-    return () => node && node.removeEventListener('mousedown', onMouseDown);
+    if (node) {
+      node.addEventListener('mousedown', onMouseDown);
+      node.addEventListener('touchstart', onMouseDown);
+    }
+    return () => {
+      if (node) {
+        node.removeEventListener('mousedown', onMouseDown);
+        node.removeEventListener('touchstart', onMouseDown);
+      }
+    };
   }, [node, onMouseDown, setOpacity]);
 
   useEffect(() => {
     document.body.addEventListener('mouseup', onMouseUp);
     document.body.addEventListener('mousemove', onMouseMove);
 
+    document.body.addEventListener('touchmove', onMouseMove, { passive: false });
+    document.body.addEventListener('touchend', onMouseUp);
+
     return () => {
       document.body.removeEventListener('mouseup', onMouseUp);
       document.body.removeEventListener('mousemove', onMouseMove);
+
+      document.body.removeEventListener('touchmove', onMouseMove);
+      document.body.removeEventListener('touchend', onMouseMove);
     };
   }, [onMouseUp, onMouseDown, onMouseMove]);
 
@@ -90,7 +117,7 @@ const useSwipeToDismiss = (ref, onDismiss, removeDOM = false, distanceBeforeDism
   else {
     style.transition = '';
   }
-  
+
   if (node) {
     for (let property in style) {
       node.style[property] = style[property];
