@@ -1,6 +1,6 @@
 {
   "name": "react-swipe-to-dismiss",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Swipe to dismiss hook for notifications",
   "main": "dist/SwipeToDismiss.js",
   "scripts": {
