@@ -7,16 +7,16 @@ Swipe to dismiss hook for notifications
 
 ### [Demo](https://react-swipe-to-dismiss.netlify.app)
 
-## Install via [npm](https://www.npmjs.com/package/react-react-tiny-dnd)
+## Install via [npm](https://www.npmjs.com/package/react-swipe-to-dismiss)
 
 ```shell
-npm install react-react-tiny-dnd
+npm install react-swipe-to-dismiss
 ```
 
 or
 
 ```shell
-yarn add react-react-tiny-dnd
+yarn add react-swipe-to-dismiss
 ```
 
 ## Usage
