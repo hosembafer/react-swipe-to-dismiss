@@ -19,6 +19,10 @@ or
 yarn add react-swipe-to-dismiss
 ```
 
+## Features
+- Left and right direction
+- Touch support (Desktop and Mobile)
+
 ## Usage
 ```js
 import { useSwipeToDismiss } from 'react-swipe-to-dismiss';
