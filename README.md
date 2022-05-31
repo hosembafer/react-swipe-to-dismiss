@@ -5,14 +5,21 @@
 
 Swipe to dismiss hook for notifications
 
-## Install
-React-swipe-to-dismiss is available via [npm](https://www.npmjs.com/package/react-swipe-to-dismiss).
-```
-npm install --save react-swipe-to-dismiss
+### [Demo](https://react-swipe-to-dismiss.netlify.app)
+
+## Install via [npm](https://www.npmjs.com/package/react-react-tiny-dnd)
+
+```shell
+npm install react-react-tiny-dnd
 ```
 
-## Example
-You may see an example <a href="https://rawgit.com/hosembafer/react-swipe-to-dismiss/master/example/build/index.html" target="_blank">here</a>.
+or
+
+```shell
+yarn add react-react-tiny-dnd
+```
+
+## Usage
 ```js
 import { useSwipeToDismiss } from 'react-swipe-to-dismiss';
 
