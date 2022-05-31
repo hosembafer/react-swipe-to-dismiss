@@ -1,7 +1,8 @@
 import React, { useRef, useState } from 'react';
+import { useSwipeToDismiss } from 'react-swipe-to-dismiss';
 import './App.css';
 
-import { useSwipeToDismiss } from '../../dist/index';
+// import { useSwipeToDismiss } from '../../dist/index';
 
 const MessageItem = ({ message, onDismiss }) => {
   const ref = useRef();
