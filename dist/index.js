@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports["default"] = void 0;
+exports.useSwipeToDismiss = void 0;
 
 var _react = require("react");
 
@@ -159,5 +159,4 @@ var useSwipeToDismiss = function useSwipeToDismiss(ref, onDismiss) {
   }
 };
 
-var _default = useSwipeToDismiss;
-exports["default"] = _default;
+exports.useSwipeToDismiss = useSwipeToDismiss;

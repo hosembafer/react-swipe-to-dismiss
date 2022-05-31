@@ -10,7 +10,7 @@ const getScreenX = (event) => {
   return screenX;
 };
 
-const useSwipeToDismiss = (ref, onDismiss, removeDOM = false, distanceBeforeDismiss = 100, direction = 'right') => {
+export const useSwipeToDismiss = (ref, onDismiss, removeDOM = false, distanceBeforeDismiss = 100, direction = 'right') => {
   const node = ref.current;
 
   const [removing, setRemoving] = useState(false);
@@ -124,5 +124,3 @@ const useSwipeToDismiss = (ref, onDismiss, removeDOM = false, distanceBeforeDism
     }
   }
 };
-
-export default useSwipeToDismiss;
