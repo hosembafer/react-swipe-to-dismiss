@@ -1,6 +1,6 @@
 {
   "name": "react-swipe-to-dismiss",
-  "version": "1.1.0",
+  "version": "1.0.1",
   "description": "Swipe to dismiss hook for notifications",
   "main": "dist/index.js",
   "scripts": {
@@ -30,8 +30,8 @@
   "homepage": "https://github.com/hosembafer/react-swipe-to-dismiss#readme",
   "peerDependencies": {
     "prop-types": "^15.6.2",
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2"
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.0",
