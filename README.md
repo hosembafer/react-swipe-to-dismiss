@@ -21,7 +21,7 @@ yarn add react-swipe-to-dismiss
 
 ## Features
 - Left and right direction
-- Touch support (Desktop and Mobile)
+- Touch support 📱 (desktop and mobile)
 
 ## Usage
 ```js
