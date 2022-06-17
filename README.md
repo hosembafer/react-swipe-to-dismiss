@@ -2,6 +2,8 @@
 [![npm version](https://img.shields.io/npm/v/react-swipe-to-dismiss?logo=npm)](https://www.npmjs.com/package/react-swipe-to-dismiss)
 [![npm downloads](https://img.shields.io/npm/dw/react-swipe-to-dismiss?logo=npm)](https://www.npmjs.com/package/react-swipe-to-dismiss)
 [![npm size](https://img.shields.io/bundlephobia/minzip/react-swipe-to-dismiss?logo=npm)](https://www.npmjs.com/package/react-swipe-to-dismiss)
+![commit activity](https://img.shields.io/github/commit-activity/y/hosembafer/react-swipe-to-dismiss)
+![license](https://img.shields.io/github/license/hosembafer/react-swipe-to-dismiss)
 
 Swipe to dismiss hook for notifications
 
